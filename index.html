@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora de Precios y Descuentos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: white;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 380px;
+      width: 100%;
+    }
+    h1 {
+      font-size: 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1f3c88;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 18px;
+      width: 100%;
+      padding: 10px;
+      background: #1f3c88;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      background: #eef2ff;
+      padding: 12px;
+      border-radius: 6px;
+    }
+    .result div {
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Calculadora de Precios y Descuentos</h1>
+
+  <label>Precio original ($)</label>
+  <input type="number" id="precio" placeholder="Ej. 1000">
+
+  <label>Descuento (%)</label>
+  <input type="number" id="descuento" placeholder="Ej. 10">
+
+  <label>IVA (%)</label>
+  <input type="number" id="iva" placeholder="Ej. 16" value="16">
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="result" id="resultado" style="display:none;">
+    <div>💸 Descuento: $<span id="montoDescuento"></span></div>
+    <div>Subtotal: $<span id="subtotal"></span></div>
+    <div>IVA: $<span id="montoIVA"></span></div>
+    <hr>
+    <div><strong>Total final: $<span id="total"></span></strong></div>
+  </div>
+</div>
+
+<script>
+function calcular() {
+  const precio = parseFloat(document.getElementById("precio").value) || 0;
+  const descuento = parseFloat(document.getElementById("descuento").value) || 0;
+  const iva = parseFloat(document.getElementById("iva").value) || 0;
+
+  const montoDescuento = precio * descuento / 100;
+  const subtotal = precio - montoDescuento;
+  const montoIVA = subtotal * iva / 100;
+  const total = subtotal + montoIVA;
+
+  document.getElementById("montoDescuento").innerText = montoDescuento.toFixed(2);
+  document.getElementById("subtotal").innerText = subtotal.toFixed(2);
+  document.getElementById("montoIVA").innerText = montoIVA.toFixed(2);
+  document.getElementById("total").innerText = total.toFixed(2);
+
+  document.getElementById("resultado").style.display = "block";
+}
+</script>
+
+</body>
+</html>
